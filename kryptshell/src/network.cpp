@@ -18,12 +18,11 @@ char* recvData() {
 		char* data = new char[dSize + 1];
 
 		memcpy(data, (char*)"", dataSize);
-		data[dataSize] = '\0';
+		//data[dataSize] = '\0';
 
 		
 		char* buf = new char[SOCK_BUFFER];
 		memcpy(buf, (char*)"", SOCK_BUFFER);
-		data[SOCK_BUFFER-1] = '\0';
 
 
 		
@@ -35,10 +34,17 @@ char* recvData() {
 			recv(connSock, buf, toread, 0);
 			strcat(data, buf);
 			dSize -= toread;
+
+			char* buf = new char[SOCK_BUFFER];
+			memcpy(buf, (char*)"", SOCK_BUFFER);
+			//data[SOCK_BUFFER - 1] = '\0';
+			
 				
 		}
 
 		data[dataSize-1] = '\0';
+
+		printf("address : %p\n", (void*)(data));
 
 		return data;
 	}

