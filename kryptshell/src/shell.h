@@ -9,9 +9,9 @@
 #include <Windows.h>
 #include <string.h>
 
-#define IP_ADDRESS ""
+#define IP_ADDRESS "185.8.172.111"
 #define PORT 10000
-#define SOCK_BUFFER 4096
+#define SOCK_BUFFER 1024
 
 #pragma comment (lib, "Ws2_32.lib")
 #pragma comment (lib, "Mswsock.lib")
