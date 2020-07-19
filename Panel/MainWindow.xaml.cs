@@ -20,11 +20,17 @@ namespace Panel
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        public StackPanel hostPanel;
+
         public MainWindow()
         {
 
             InitializeComponent();
-            //Execute.MouseUp += new MouseButtonEventHandler(handleExecute);
+
+            hostPanel = Hosts;
+
+            
         }
 
         public void handleExecute(object sender, RoutedEventArgs e) {

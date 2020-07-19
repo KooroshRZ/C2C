@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
 using System.Windows;
 
 namespace Panel
@@ -13,18 +11,70 @@ namespace Panel
     /// </summary>
     public partial class App : Application{
 
+        public Window mainWindows;
+
         public App(){
-            this.Server();
-            Window mainWindows = new MainWindow();
+            
+            mainWindows = new MainWindow();
             MainWindow.Show();
+            this.ExecuteServer();
         }
 
-        public int Server()
+        public void ExecuteServer()
         {
 
-            // server socket here
-            MessageBox.Show("I'm server");
-            return 0;
+            IPHostEntry ipHost = Dns.GetHostEntry(Dns.GetHostName());
+            IPAddress ipAddr = ipHost.AddressList[0];
+            IPEndPoint localEndpoint = new IPEndPoint(ipAddr, 11111);
+
+            Socket listener = new Socket(ipAddr.AddressFamily,
+                 SocketType.Stream, ProtocolType.Tcp);
+
+            try {
+
+                listener.Bind(localEndpoint);
+                listener.Listen(10);
+
+                while (true)
+                {
+
+                    Console.WriteLine("Waiting connection ... ");
+                    
+                    Socket clientSocket = listener.Accept();
+
+                    //mainWindows.
+                    //mainWindows.
+
+                    // Data buffer 
+                    byte[] bytes = new Byte[1024];
+                    string data = null;
+
+                    while (true)
+                    {
+
+                        int numByte = clientSocket.Receive(bytes);
+
+                        data += Encoding.ASCII.GetString(bytes,
+                                                   0, numByte);
+
+                        if (data.IndexOf("<EOF>") > -1)
+                            break;
+                    }
+
+                    Console.WriteLine("Text received -> {0} ", data);
+                    byte[] message = Encoding.ASCII.GetBytes("Test Server");
+                    
+                    clientSocket.Send(message);
+                    clientSocket.Shutdown(SocketShutdown.Both);
+                    clientSocket.Close();
+
+                }
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
         }
 
     }
