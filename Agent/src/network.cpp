@@ -38,10 +38,11 @@ char* recvData() {
 			
 			printf("toread : %d\n", toread);
 
-			if (toread < SOCK_BUFFER)
-				recv(connSock, buf, toread-1, 0);
+			int ret = 0;
+			if (toread == SOCK_BUFFER)
+				ret = recv(connSock, buf, toread, 0);
 			else
-				recv(connSock, buf, toread, 0);
+				ret = recv(connSock, buf, toread, 0);
 
 			
 			buf[toread] = '\0';
@@ -49,7 +50,8 @@ char* recvData() {
 			dSize -= toread;
 			printf("DSIZE : %d\n", dSize);
 
-			printf("%s\n", buf);
+			//printf("%s\n", buf);
+			printf("read : %d\n", ret);
 			system("PAUSE");
 
 			//char* buf = new char[SOCK_BUFFER];
@@ -61,7 +63,8 @@ char* recvData() {
 
 		data[dataSize-1] = '\0';
 
-		printf("address : %p\n", (void*)(data));
+		printf("data : %s\n", data);
+		//printf("address : %p\n", (void*)(data));
 
 		return data;
 	}
@@ -104,7 +107,13 @@ int initSock(LPCSTR ipAddress, int port) {
 		Sleep(3000);
 	}
 
-	
+	// set non-blocking
+
+	//u_long iMode;
+	//int ioctlResult = ioctlsocket(connSock, FIONBIO, &iMode);
+
+	//if (ioctlResult != NO_ERROR)
+	//	printf("ioctlsocket failed with error: %ld\n", ioctlResult);
 
 	return 0;
 
