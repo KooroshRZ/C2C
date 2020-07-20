@@ -3,81 +3,43 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Panel
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application{
+    public partial class App : Application {
 
-        public Window mainWindows;
+        public MainWindow mainWindow;
 
-        public App(){
-            
-            mainWindows = new MainWindow();
+        /*protected override void OnStartup(StartupEventArgs e) {
+
+            mainWindow = new MainWindow();
+            mainWindow.Title = "C&C Panel";
             MainWindow.Show();
-            this.ExecuteServer();
+            
+        }*/
+    
+        private void Panel_Startup(object sender, StartupEventArgs e) {
+
+            mainWindow = new MainWindow();
+            mainWindow.Title = "C&C Panel";
+            MainWindow.Show();
+
         }
 
-        public void ExecuteServer()
+        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
 
-            IPHostEntry ipHost = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint localEndpoint = new IPEndPoint(ipAddr, 11111);
+            MessageBox.Show("An unhandled exception just occurred: " + e.Exception.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Warning);
+            e.Handled = true;
 
-            Socket listener = new Socket(ipAddr.AddressFamily,
-                 SocketType.Stream, ProtocolType.Tcp);
-
-            try {
-
-                listener.Bind(localEndpoint);
-                listener.Listen(10);
-
-                while (true)
-                {
-
-                    Console.WriteLine("Waiting connection ... ");
-                    
-                    Socket clientSocket = listener.Accept();
-
-                    //mainWindows.
-                    //mainWindows.
-
-                    // Data buffer 
-                    byte[] bytes = new Byte[1024];
-                    string data = null;
-
-                    while (true)
-                    {
-
-                        int numByte = clientSocket.Receive(bytes);
-
-                        data += Encoding.ASCII.GetString(bytes,
-                                                   0, numByte);
-
-                        if (data.IndexOf("<EOF>") > -1)
-                            break;
-                    }
-
-                    Console.WriteLine("Text received -> {0} ", data);
-                    byte[] message = Encoding.ASCII.GetBytes("Test Server");
-                    
-                    clientSocket.Send(message);
-                    clientSocket.Shutdown(SocketShutdown.Both);
-                    clientSocket.Close();
-
-                }
-                
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
         }
+
+        
 
     }
 
-    
 }

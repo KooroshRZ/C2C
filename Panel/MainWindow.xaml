@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Panel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="602.443" Width="1101.954">
-
+        Title="{StaticResource hello}" Height="602.443" Width="1101.954">
+ 
     <Grid Name="mainGrid" Margin="23,10,2,8" RenderTransformOrigin="-0.178,1.037">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="279*"/>
@@ -16,6 +16,7 @@
 
         <StackPanel Name="Hosts">
             <TextBlock HorizontalAlignment="Center">Hosts</TextBlock>
+            <!--<Button Margin="200,500,0,0" Content="List Hosts" RenderTransformOrigin="1.005,20.363" Click="listHosts"/>-->
         </StackPanel>
 
         <StackPanel Name="CommandControl"  Margin="10,0,10,275" Grid.Column="1">
@@ -24,10 +25,7 @@
             <TextBox x:Name="arg1" Text="Enter arg1" Height="51" Margin="86,0,92,0"/>
             <TextBox x:Name="arg2" Text="Enter arg2" Height="59" Margin="86,0,92,0"/>
             <TextBox x:Name="passwd" Text="Enter password" Height="52" Margin="86,0,92,0"/>
-
-            <Button Name="Execute" Height="30" Margin="284,0,364,0" RenderTransformOrigin="0.5,0.5" Click="handleExecute">
-                <Button.Content>Execute</Button.Content>
-            </Button>
+            <Button x:Name="Execute" Height="30" Margin="284,0,364,0" RenderTransformOrigin="0.5,0.5">Execute</Button>
         </StackPanel>
 
         <StackPanel Grid.Column="1" Margin="10,283,0,10">
