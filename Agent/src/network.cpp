@@ -104,6 +104,7 @@ int initSock(LPCSTR ipAddress, int port) {
 	int cResult = 1;
 	while (cResult) {
 		cResult = connect(connSock, (struct sockaddr*)&server, sizeof(server));
+		printf("Error : %d\n", WSAGetLastError());
 		Sleep(3000);
 	}
 

@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace Panel
 {
@@ -28,11 +29,10 @@ namespace Panel
         Client[] clients;
 
         string clientIPAddress;
-        int clientIndex = 0;
+        public int clientIndex = 0;
 
 
-        public MainWindow()
-        {
+        public MainWindow(){
 
             InitializeComponent();
 
@@ -45,40 +45,46 @@ namespace Panel
             serverWorker.ProgressChanged += worker_NewClient;
             //serverWorker.RunWorkerCompleted += worker_RunWorkerCompleted;
             serverWorker.RunWorkerAsync(10000);
-
             
-
         }
-
-
-        public void listHosts(object sender, RoutedEventArgs e){
-
-            
-
-        }
-
+        
         void worker_ExecuteServer(object sender, DoWorkEventArgs e)
         {
 
             IPAddress ipAddress = IPAddress.Parse("192.168.101.193");
-            TcpListener serverSocket = new TcpListener(ipAddress, 10000);
-            clientSockets[clientIndex] = default(TcpClient);
-            serverSocket.Start();
+
+            TcpListener serverSocket = null;
+
+            try
+            {
+                
+                serverSocket = new TcpListener(ipAddress, 20000);
+                //clientSockets[clientIndex] = default(TcpClient);
+                serverSocket.Start();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.ToString());
+            }
+            
+            
             
 
             while (true) {
 
+                
                 clientSockets[clientIndex] = serverSocket.AcceptTcpClient();
                 (sender as BackgroundWorker).ReportProgress(0);
-
+                Thread.Sleep(10);
             }
             
 
         }
 
         void worker_NewClient(object sender, ProgressChangedEventArgs e) {
-
+            
             clientIPAddress = "" + IPAddress.Parse(((IPEndPoint)clientSockets[clientIndex].Client.RemoteEndPoint).Address.ToString());
+            
 
             Client client = new Client();
             client.clientIndex = clientIndex;

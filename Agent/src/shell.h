@@ -10,7 +10,7 @@
 #include <string.h>
 
 #define IP_ADDRESS "192.168.101.193"
-#define PORT 10000
+#define PORT 20000
 #define SOCK_BUFFER 1024
 
 #pragma comment (lib, "Ws2_32.lib")
