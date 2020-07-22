@@ -25,6 +25,7 @@ char* recvData() {
 		//memcpy(buf, (char*)"", SOCK_BUFFER);
 
 		char buf[SOCK_BUFFER+1];
+		memcpy(buf, (char*)"", SOCK_BUFFER);
 		
 		while (dSize > 0) {
 
@@ -36,30 +37,30 @@ char* recvData() {
 			//memcpy(buf, (char*)"", SOCK_BUFFER);
 
 			
-			printf("toread : %d\n", toread);
+			//printf("toread : %d\n", toread);
 
 			int ret = 0;
-			if (toread == SOCK_BUFFER)
-				ret = recv(connSock, buf, toread, 0);
-			else
-				ret = recv(connSock, buf, toread, 0);
+			//if (toread == SOCK_BUFFER)
+			ret = recv(connSock, buf, toread, 0);
 
 			
-			buf[toread] = '\0';
-			strcat(data, buf);
+			//buf[toread] = '\0';
+			//strcat(data, buf);
 			dSize -= toread;
-			printf("DSIZE : %d\n", dSize);
+			//printf("DSIZE : %d\n", dSize);
 
 			//printf("%s\n", buf);
-			printf("read : %d\n", ret);
-			system("PAUSE");
+			//printf("read : %d\n", ret);
+			//system("PAUSE");
 
 			//char* buf = new char[SOCK_BUFFER];
 			//memcpy(buf, (char*)"", SOCK_BUFFER);
 			//data[SOCK_BUFFER - 1] = '\0';
 			
-				
+			printf("%s", buf);
 		}
+
+		system("PAUSE");
 
 		data[dataSize-1] = '\0';
 

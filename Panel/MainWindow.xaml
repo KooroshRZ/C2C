@@ -21,11 +21,11 @@
 
         <StackPanel Name="CommandControl"  Margin="10,0,10,275" Grid.Column="1">
             <TextBlock HorizontalAlignment="Center">Command and Control</TextBlock>
-            <TextBox x:Name="command" Text="Enter command" Height="50" Margin="86,0,92,0"/>
-            <TextBox x:Name="arg1" Text="Enter arg1" Height="51" Margin="86,0,92,0"/>
-            <TextBox x:Name="arg2" Text="Enter arg2" Height="59" Margin="86,0,92,0"/>
-            <TextBox x:Name="passwd" Text="Enter password" Height="52" Margin="86,0,92,0"/>
-            <Button x:Name="Execute" Height="30" Margin="284,0,364,0" RenderTransformOrigin="0.5,0.5">Execute</Button>
+            <TextBox x:Name="commandTextBox" Text="Enter command" Height="50" Margin="86,0,92,0"/>
+            <TextBox x:Name="arg0TextBox" Text="Enter arg1" Height="51" Margin="86,0,92,0"/>
+            <TextBox x:Name="arg1TextBox" Text="Enter arg2" Height="59" Margin="86,0,92,0"/>
+            <TextBox x:Name="passwordTextBox" Text="Enter password" Height="52" Margin="86,0,92,0"/>
+            <Button x:Name="ExecuteButton" Height="30" Margin="284,0,364,0" RenderTransformOrigin="0.5,0.5">Execute</Button>
         </StackPanel>
 
         <StackPanel Grid.Column="1" Margin="10,283,0,10">

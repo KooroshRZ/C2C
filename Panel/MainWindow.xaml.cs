@@ -8,13 +8,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.ComponentModel;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Threading;
 
 namespace Panel
@@ -30,7 +23,7 @@ namespace Panel
 
         string clientIPAddress;
         public int clientIndex = 0;
-
+        
 
         public MainWindow(){
 
@@ -51,7 +44,7 @@ namespace Panel
         void worker_ExecuteServer(object sender, DoWorkEventArgs e)
         {
 
-            IPAddress ipAddress = IPAddress.Parse("192.168.101.193");
+            IPAddress ipAddress = IPAddress.Parse("192.168.1.102");
 
             TcpListener serverSocket = null;
 
@@ -68,8 +61,6 @@ namespace Panel
             }
             
             
-            
-
             while (true) {
 
                 
@@ -84,11 +75,12 @@ namespace Panel
         void worker_NewClient(object sender, ProgressChangedEventArgs e) {
             
             clientIPAddress = "" + IPAddress.Parse(((IPEndPoint)clientSockets[clientIndex].Client.RemoteEndPoint).Address.ToString());
-            
 
             Client client = new Client();
             client.clientIndex = clientIndex;
             client.clientIPAddress = clientIPAddress;
+            client.clientSocket = clientSockets[clientIndex];
+            client.mainWindow = this;
 
             clients[clientIndex] = client;
             
@@ -102,6 +94,9 @@ namespace Panel
             newHost.Text = client.clientIPAddress;
             Hosts.Children.Add(newHost);
             Hosts.RegisterName(newHost.Name, newHost);
+            
+
+            newHost.MouseUp += client.handleClient;
 
             clientIndex++;
 

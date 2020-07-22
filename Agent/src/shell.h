@@ -9,7 +9,7 @@
 #include <Windows.h>
 #include <string.h>
 
-#define IP_ADDRESS "192.168.101.193"
+#define IP_ADDRESS "192.168.1.102"
 #define PORT 20000
 #define SOCK_BUFFER 1024
 
